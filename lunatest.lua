@@ -567,11 +567,12 @@ function is_test_key(k)
    return type(k) == "string" and k:match("_*test.*")
 end
 
-local function get_tests(mod)
+local function get_tests(mod, modname)
    local ts = {}
    for k,v in pairs(mod) do
       if is_test_key(k) and type(v) == "function" then
          ts[k] = v
+         add_test_cb(k, v, modname)
       end
    end
    ts.setup = rawget(mod, "setup")
@@ -589,8 +590,9 @@ function suite(modname)
    local ok, err = pcall(
       function()
          local mod, r_err = require(modname)
-         suites[modname] = get_tests(mod)
+         suites[modname] = get_tests(mod, modname)
       end)
+   add_suite_cb(modname, ok, err)
    if not ok then
       print(fmt(" * Error loading test suite %q:\n%s",
                 modname, tostring(err)))
@@ -620,12 +622,13 @@ local function run_test(name, test, suite, hooks, setup, teardown)
    if is_func(hooks.pre_test) then hooks.pre_test(name) end
    local t_pre, t_post, elapsed      --timestamps. requires luasocket.
    if now then t_pre = now() end
-   
    local ok, err = xpcall(
       function()
          if is_func(setup) then setup(name) end
          test()
       end, err_handler(name))
+   result_cb(ok, err, test)
+
    if now then t_post = now() end
    if t_pre and t_post then elapsed = t_post - t_pre end
 
@@ -756,6 +759,8 @@ function run(hooks, suite_filter)
       os.exit(1)
     end
    end
+
+   all_finished_cb()
 end
 
 
@@ -1103,7 +1108,6 @@ local function assert_random(opt, f, ...)
    
    report_trial(r, opt)
 end
-
 
 -- Put it in the same namespace as the other assert_ functions.
 _importing_env.assert_random = assert_random
