@@ -1,6 +1,7 @@
 -- Main
 require("test_main"):suite{
-   -- ADD_TESTS_HERE
+   -- Add test suite here
+   "app_main_test",
 }:run{
    -- skip = true, -- Skip tests and execute main (For production)
    -- main = "_main", -- Specify application main
