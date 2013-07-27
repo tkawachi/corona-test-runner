@@ -4,5 +4,5 @@ require("test_main"):suite{
    "app_main_test",
 }:run{
    -- skip = true, -- Skip tests and execute main (For production)
-   -- main = "_main", -- Specify application main
+   -- main = "app_main", -- Specify application main
 }
