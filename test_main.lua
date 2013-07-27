@@ -153,7 +153,7 @@ end
 
 function m:run(tbl)
    local tbl = tbl or {}
-   self.main_mod = tbl["main"] or "_main"
+   self.main_mod = tbl["main"] or "app_main"
    local skip = tbl["skip"] or false
    if skip then
       m:runMain()

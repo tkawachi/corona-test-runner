@@ -12,7 +12,7 @@ Corona SDK で作ったアプリケーション用の単体テスト実行環境
 
 ````
 $ cd プロジェクトディレクトリ
-$ \curl -L http://xxxxx | bash
+$ \curl -L http://bit.ly/corona-test-runner | bash
 ````
 
 セットアップにより `main.lua` は `app_main.lua` へ移動されます。
