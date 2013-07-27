@@ -18,9 +18,13 @@ for f in app_main.lua test_main.lua lunatest.lua; do
 done
 
 if [ -a main.lua ]; then
+    echo >&2 "Moving main.lua to app_main.lua"
     mv main.lua app_main.lua
 fi
 
 for f in main.lua test_main.lua lunatest.lua; do
+    echo >&2 "Downloading $f"
     \curl -O ${url_base}/$f
 done
+
+echo >&2 "done!"
