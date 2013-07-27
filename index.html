@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Corona-test-runner : Corona SDK で作ったアプリをテストしよう" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Corona-test-runner</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/tkawachi/corona-test-runner">View on GitHub</a>
+
+          <h1 id="project_title">Corona-test-runner</h1>
+          <h2 id="project_tagline">Corona SDK で作ったアプリをテストしよう</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/tkawachi/corona-test-runner/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/tkawachi/corona-test-runner/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="corona-sdk-test-runner" class="anchor" href="#corona-sdk-test-runner"><span class="octicon octicon-link"></span></a>Corona SDK test runner</h1>
+
+<p>Corona SDK で作ったアプリケーション用の単体テスト実行環境を提供します。</p>
+
+<p>この環境をセットアップするとアプリケーション開始時に単体テストが実行されるようになります。
+単体テストがひとつでも失敗するとテスト結果を表示する画面が表示されます。
+単体テストが全て成功した場合はアプリケーションが開始されます。</p>
+
+<h2>
+<a name="%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97" class="anchor" href="#%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97"><span class="octicon octicon-link"></span></a>セットアップ</h2>
+
+<h3>
+<a name="mac-os-x" class="anchor" href="#mac-os-x"><span class="octicon octicon-link"></span></a>Mac OS X</h3>
+
+<pre><code>$ cd プロジェクトディレクトリ
+$ \curl -L http://bit.ly/corona-test-runner | bash
+</code></pre>
+
+<p>セットアップにより <code>main.lua</code> は <code>app_main.lua</code> へ移動されます。</p>
+
+<p><code>_test.lua</code> で終わるファイルはテストのテンプレートファイルです。</p>
+
+<h3>
+<a name="%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9" class="anchor" href="#%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E6%9B%B8%E3%81%8D%E6%96%B9"><span class="octicon octicon-link"></span></a>テストの書き方</h3>
+
+<p>テストは <a href="https://github.com/silentbicycle/lunatest">lunatest</a> の記法に従って記述します。</p>
+
+<pre><code>-- sample_test.lua
+module(..., package.seeall)
+
+function test_double()
+   assert_equal(5 * 2, 10)
+end
+</code></pre>
+
+<p>テストファイル一覧を <code>test_main</code> の <code>suite()</code> 引数に指定します。</p>
+
+<pre><code>-- main.lua
+-- Main
+require("test_main"):suite{
+   "sample_test",
+}:run{
+   -- skip = true, -- Skip tests and execute main (For production)
+   -- main = "_main", -- Specify application main
+}
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Corona-test-runner maintained by <a href="https://github.com/tkawachi">tkawachi</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
